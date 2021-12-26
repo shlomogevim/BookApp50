@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "42564533281",
+    "project_id": "bookapp50firestore",
+    "storage_bucket": "bookapp50firestore.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:42564533281:android:55a868432c99d333e83760",
+        "android_client_info": {
+          "package_name": "com.sg.bookapp50"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "42564533281-v1h70gjettcrv6b7f1a71c77s99uruhm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAuWnthx90t5LLgN1s876OaMh0JGZAe80k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "42564533281-v1h70gjettcrv6b7f1a71c77s99uruhm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
