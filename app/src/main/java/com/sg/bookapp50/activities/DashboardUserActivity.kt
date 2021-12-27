@@ -21,9 +21,11 @@ class DashboardUserActivity : AppCompatActivity() {
         checkUser()
         binding.logoutBtn.setOnClickListener {
             firebaseAuth.signOut()
-            startActivity(Intent(this,MainActivity::class.java))
-            finish()
+           /* startActivity(Intent(this,MainActivity::class.java))
+            finish()*/
+            checkUser()
         }
+
     }
 
     private fun checkUser() {

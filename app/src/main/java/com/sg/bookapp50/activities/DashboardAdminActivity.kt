@@ -10,34 +10,38 @@ import com.sg.bookapp50.databinding.ActivityDashboardAdminBinding
 
 class DashboardAdminActivity : AppCompatActivity() {
 
-    private lateinit var binding:ActivityDashboardAdminBinding
+    private lateinit var binding: ActivityDashboardAdminBinding
     private lateinit var firebaseAuth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        binding= ActivityDashboardAdminBinding.inflate(layoutInflater)
+        binding = ActivityDashboardAdminBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        firebaseAuth= FirebaseAuth.getInstance()
+        firebaseAuth = FirebaseAuth.getInstance()
         checkUser()
 
         binding.logoutBtn.setOnClickListener {
             firebaseAuth.signOut()
-            Toast.makeText(this,"Signing out ...",Toast.LENGTH_LONG).show()
-            startActivity(Intent(this,MainActivity::class.java))
-            finish()
+            /* Toast.makeText(this,"Signing out ...",Toast.LENGTH_LONG).show()
+             startActivity(Intent(this,MainActivity::class.java))
+             finish()*/
         }
+            binding.addCategoryBtn.setOnClickListener {
+                startActivity(Intent(this, CateroryAddActivity::class.java))
+            }
+
     }
 
     private fun checkUser() {
-        val firbaseUser=firebaseAuth.currentUser
-        if (firbaseUser==null){
-            Toast.makeText(this,"Sorry , Cannot find user",Toast.LENGTH_LONG).show()
-            startActivity(Intent(this,MainActivity::class.java))
+        val firbaseUser = firebaseAuth.currentUser
+        if (firbaseUser == null) {
+            Toast.makeText(this, "Sorry , Cannot find user", Toast.LENGTH_LONG).show()
+            startActivity(Intent(this, MainActivity::class.java))
             finish()
-        }else{
-            val email=firbaseUser.email
-            binding.subTitle.text=email
+        } else {
+            val email = firbaseUser.email
+            binding.subTitle.text = email
         }
     }
 }

@@ -2,9 +2,11 @@ package com.sg.bookappfirebase
 
 const val TAGG="tagg"
 
-const val CATEGORY_REF="NewCategories"
-const val CATEGORY_NAME="Categname"
-const val CATEGORY_TIMESTAMP="categtimestamp"
+const val CATEGORY_REF="Categories"
+const val CATEGORY_NAME="Category"
+const val CATEGORY_TIMESTAMP="timestamp"
+const val CATEGORY_ID="id"
+const val CATEGORY_UID="id"
 
 
 const val USER_REF="users"
@@ -15,6 +17,8 @@ const val USER_PASSWORD="userPassword"
 const val USER_PROFILE_IMAGE="ProfileImage"
 const val USER_TYPE="userType"
 const val USER_DATE_CREATE="userDateCreate"
+
+
 
 
 
