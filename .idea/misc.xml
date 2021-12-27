@@ -5,7 +5,14 @@
       <map>
         <entry key="..\:/Android/Projects/BookApp/BookApp50/app/src/main/res/drawable-v24/shape_button02.xml" value="0.1859375" />
         <entry key="..\:/Android/Projects/BookApp/BookApp50/app/src/main/res/drawable/sahpe_button03.xml" value="0.1" />
-        <entry key="..\:/Android/Projects/BookApp/BookApp50/app/src/main/res/layout/activity_main.xml" value="0.15" />
+        <entry key="..\:/Android/Projects/BookApp/BookApp50/app/src/main/res/layout/activity_caterory_add.xml" value="0.1287037037037037" />
+        <entry key="..\:/Android/Projects/BookApp/BookApp50/app/src/main/res/layout/activity_dashboard_admin.xml" value="0.1287037037037037" />
+        <entry key="..\:/Android/Projects/BookApp/BookApp50/app/src/main/res/layout/activity_dashboard_user.xml" value="0.1287037037037037" />
+        <entry key="..\:/Android/Projects/BookApp/BookApp50/app/src/main/res/layout/activity_login.xml" value="0.22" />
+        <entry key="..\:/Android/Projects/BookApp/BookApp50/app/src/main/res/layout/activity_main.xml" value="0.3333333333333333" />
+        <entry key="..\:/Android/Projects/BookApp/BookApp50/app/src/main/res/layout/activity_register.xml" value="0.1287037037037037" />
+        <entry key="..\:/Android/Projects/BookApp/BookApp50/app/src/main/res/layout/activity_splash.xml" value="0.1287037037037037" />
+        <entry key="..\:/Android/Projects/BookApp/BookApp50/app/src/main/res/layout/row_category.xml" value="0.1287037037037037" />
       </map>
     </option>
   </component>
