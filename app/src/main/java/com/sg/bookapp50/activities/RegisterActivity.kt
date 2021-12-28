@@ -15,7 +15,7 @@ import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.sg.bookapp50.R
 import com.sg.bookapp50.databinding.ActivityRegisterBinding
-import com.sg.bookappfirebase.*
+
 
 class RegisterActivity : AppCompatActivity() {
 

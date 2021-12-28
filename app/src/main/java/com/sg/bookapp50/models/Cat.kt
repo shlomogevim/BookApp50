@@ -5,6 +5,6 @@ import com.google.firebase.Timestamp
 data class Cat(
     var id:String="",
     val categoryName: String="",
-    val timestamp: Timestamp?=null,
+    val timestamp: Timestamp?,
     val uid: String=""
 )

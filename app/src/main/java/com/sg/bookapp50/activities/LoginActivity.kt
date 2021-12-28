@@ -16,9 +16,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import com.sg.bookapp50.R
 import com.sg.bookapp50.databinding.ActivityLoginBinding
-import com.sg.bookappfirebase.TAGG
-import com.sg.bookappfirebase.USER_REF
-import com.sg.bookappfirebase.USER_TYPE
+
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding

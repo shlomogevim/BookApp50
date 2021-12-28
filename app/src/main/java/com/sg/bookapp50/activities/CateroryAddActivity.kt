@@ -6,11 +6,12 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import com.sg.bookapp50.R
 import com.sg.bookapp50.databinding.ActivityCateroryAddBinding
-import com.sg.bookappfirebase.*
+
 
 class CateroryAddActivity : AppCompatActivity() {
 
@@ -49,11 +50,11 @@ class CateroryAddActivity : AppCompatActivity() {
 
     private fun addCategoryFirebase() {
         progressDialop.show()
-        val timestamp = System.currentTimeMillis()
+        val timestamp = FieldValue.serverTimestamp()
         val data = HashMap<String, Any>()
         data.put(CATEGORY_ID, "$timestamp")
         data.put(CATEGORY_NAME, category)
-        data.put(CATEGORY_TIMESTAMP, timestamp)
+        data.put(CATEGORY_TIMESTAMP, FieldValue.serverTimestamp())
         data.put(CATEGORY_UID, "${firebaseAuth.currentUser?.uid}")
         FirebaseFirestore.getInstance().collection(CATEGORY_REF).add(data)
             .addOnSuccessListener {

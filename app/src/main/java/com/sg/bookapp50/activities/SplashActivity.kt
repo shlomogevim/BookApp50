@@ -8,9 +8,6 @@ import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.sg.bookapp50.databinding.ActivitySplashBinding
-import com.sg.bookappfirebase.TAGG
-import com.sg.bookappfirebase.USER_REF
-import com.sg.bookappfirebase.USER_TYPE
 
 class SplashActivity : AppCompatActivity() {
 
