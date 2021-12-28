@@ -7,6 +7,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.widget.Button
+import android.widget.Filter
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -42,24 +43,21 @@ class DashboardAdminActivity : AppCompatActivity(), CategoryInterface {
 
         checkUser()
 
+        activateButtons()
+
+    }
+
+    private fun activateButtons() {
         binding.searchEt.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                TODO("Not yet implemented")
-            }
-
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                TODO("Not yet implemented")
+                val list=createFilterList(p0.toString())
+                val adapter=CategoryAdapter(list,this@DashboardAdminActivity)
+                binding.categoriesRv.adapter=adapter
+                adapter.notifyDataSetChanged()
             }
-
-            override fun afterTextChanged(p0: Editable?) {
-                TODO("Not yet implemented")
-            }
-
-
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun afterTextChanged(p0: Editable?) {}
         })
-
-
-
 
         binding.logoutBtn.setOnClickListener {
             auth.signOut()
@@ -67,95 +65,113 @@ class DashboardAdminActivity : AppCompatActivity(), CategoryInterface {
              startActivity(Intent(this,MainActivity::class.java))
              finish()*/
         }
+
         binding.addCategoryBtn.setOnClickListener {
             startActivity(Intent(this, CateroryAddActivity::class.java))
         }
-
     }
 
-    private fun checkUser() {
-        val firebaseUser = auth.currentUser
-        if (firebaseUser == null) {
-            Toast.makeText(this, "Sorry , Cannot find user", Toast.LENGTH_LONG).show()
-            startActivity(Intent(this, MainActivity::class.java))
-            finish()
+    private fun createFilterList(constrain: String): ArrayList<Cat> {
+        var st = ""
+        var filterModels: ArrayList<Cat> = ArrayList()
+
+        if (constrain != null && constrain.isNotEmpty()) {
+            st = constrain.toString().uppercase()
+            for (index in 0 until categories.size) {
+                if (categories[index].categoryName.uppercase().contains(st)) {
+                    filterModels.add(categories[index])
+                }
+            }
         } else {
-            val email = firebaseUser.email
-            binding.subTitle.text = email
+            filterModels = categories
+        }
+        return filterModels
+    }
+
+
+private fun checkUser() {
+    val firebaseUser = auth.currentUser
+    if (firebaseUser == null) {
+        Toast.makeText(this, "Sorry , Cannot find user", Toast.LENGTH_LONG).show()
+        startActivity(Intent(this, MainActivity::class.java))
+        finish()
+    } else {
+        val email = firebaseUser.email
+        binding.subTitle.text = email
+    }
+}
+
+
+override fun onResume() {
+    super.onResume()
+    setListener()
+}
+
+private fun setListener() {
+    categoriesRef.collection(CATEGORY_REF)
+        .orderBy(CATEGORY_TIMESTAMP, Query.Direction.DESCENDING)
+        .addSnapshotListener(this) { snapshot, exception ->
+            if (exception != null) {
+                Toast.makeText(
+                    this,
+                    "Cannot download data->${exception.localizedMessage}",
+                    Toast.LENGTH_LONG
+                ).show()
+            } else {
+                if (snapshot != null) {
+                    parshData(snapshot)
+                }
+            }
+
+        }
+}
+
+private fun parshData(snapshot: QuerySnapshot) {
+    var categoryName = ""
+    categories.clear()
+    for (document in snapshot) {
+        val data = document.data
+        if (data != null) {
+            if (data[CATEGORY_NAME] != null) {
+                categoryName = data[CATEGORY_NAME] as String
+                val timestamp = document.getTimestamp(CATEGORY_TIMESTAMP)
+                val id = document.id
+                val newCat = Cat(id, categoryName, timestamp)
+                categories.add(newCat)
+            }
+            catAdaper.notifyDataSetChanged()
         }
     }
+}
 
+override fun categoryInterfaceListenet(category: Cat) {
 
-    override fun onResume() {
-        super.onResume()
-        setListener()
-    }
-
-    private fun setListener() {
-        categoriesRef.collection(CATEGORY_REF)
-            .orderBy(CATEGORY_TIMESTAMP, Query.Direction.DESCENDING)
-            .addSnapshotListener(this) { snapshot, exception ->
-                if (exception != null) {
-                    Toast.makeText(
-                        this,
-                        "Cannot download data->${exception.localizedMessage}",
-                        Toast.LENGTH_LONG
-                    ).show()
-                } else {
-                    if (snapshot != null) {
-                        parshData(snapshot)
-                    }
-                }
-
+    val buider = AlertDialog.Builder(this)
+    val dialogView = layoutInflater.inflate(R.layout.option_menu, null)
+    val deleteBtn = dialogView.findViewById<Button>(R.id.optionDeleteBtn)
+    val editBtn = dialogView.findViewById<Button>(R.id.optionEditBtn)
+    buider.setView(dialogView)
+        .setNegativeButton("Cancel") { _, _ -> }
+    val ad = buider.show()
+    deleteBtn.setOnClickListener {
+        categoriesRef.collection(CATEGORY_REF).document(category.id).delete()
+            .addOnSuccessListener {
+                ad.dismiss()
+            }
+            .addOnFailureListener {
+                Log.d(TAGG, "Cannot delet category because -> ${it.localizedMessage}")
             }
     }
 
-    private fun parshData(snapshot: QuerySnapshot) {
-        var categoryName = ""
-        categories.clear()
-        for (document in snapshot) {
-            val data = document.data
-            if (data != null) {
-                if (data[CATEGORY_NAME] != null) {
-                    categoryName = data[CATEGORY_NAME] as String
-                    val timestamp = document.getTimestamp(CATEGORY_TIMESTAMP)
-                    val id = document.id
-                    val newCat = Cat(id, categoryName, timestamp)
-                    categories.add(newCat)
-                }
-                catAdaper.notifyDataSetChanged()
-            }
-        }
+    editBtn.setOnClickListener {
+        val intentToUpdate = Intent(this, UpdateCategoryActivity::class.java)
+        intentToUpdate.putExtra(CATEGORY_DOC_ID_EXSTRA, category.id)
+        intentToUpdate.putExtra(CATEGORY_TEXT_EXSTRA, category.categoryName)
+        ad.dismiss()
+        startActivity(intentToUpdate)
+
     }
-
-    override fun categoryInterfaceListenet(category: Cat) {
-
-        val buider = AlertDialog.Builder(this)
-        val dialogView = layoutInflater.inflate(R.layout.option_menu, null)
-        val deleteBtn = dialogView.findViewById<Button>(R.id.optionDeleteBtn)
-        val editBtn = dialogView.findViewById<Button>(R.id.optionEditBtn)
-        buider.setView(dialogView)
-            .setNegativeButton("Cancel") { _, _ -> }
-        val ad = buider.show()
-        deleteBtn.setOnClickListener {
-            categoriesRef.collection(CATEGORY_REF).document(category.id).delete()
-                .addOnSuccessListener {
-                    ad.dismiss()
-                }
-                .addOnFailureListener {
-                    Log.d(TAGG, "Cannot delet category because -> ${it.localizedMessage}")
-                }
-        }
-
-        editBtn.setOnClickListener {
-            val intentToUpdate = Intent(this, UpdateCategoryActivity::class.java)
-            intentToUpdate.putExtra(CATEGORY_DOC_ID_EXSTRA, category.id)
-            intentToUpdate.putExtra(CATEGORY_TEXT_EXSTRA, category.categoryName)
-            ad.dismiss()
-            startActivity(intentToUpdate)
-
-        }
-    }
+}
 }
 
 /* private lateinit var binding: ActivityDashboardAdminBinding
