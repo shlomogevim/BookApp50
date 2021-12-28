@@ -51,7 +51,7 @@
     </RelativeLayout>
 
     <EditText
-        android:id="@+id/searchEt_Dashboard_admin"
+        android:id="@+id/searchEt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/toolbarRl"
@@ -70,7 +70,7 @@
         android:layout_height="match_parent"
         tools:listitem="@layout/row_category"
         android:layout_above="@id/addCategoryTil"
-        android:layout_below="@id/searchEt_Dashboard_admin"
+        android:layout_below="@id/searchEt"
         android:layout_margin="5dp" />
 
 

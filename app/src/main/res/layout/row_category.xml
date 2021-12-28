@@ -14,7 +14,7 @@
         android:layout_gravity="center_vertical"
         android:orientation="horizontal">
         <TextView
-            android:id="@+id/category_Tv"
+            android:id="@+id/category_Tv_row_category"
             android:layout_width="0dp"
             android:layout_gravity="center_vertical"
             android:layout_height="wrap_content"
@@ -22,7 +22,7 @@
             android:layout_weight="1"
             android:textColor="@color/black"/>
         <ImageButton
-            android:id="@+id/deleteBtn"
+            android:id="@+id/deleteBtn_row_category"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:src="@drawable/ic_delete_white"
