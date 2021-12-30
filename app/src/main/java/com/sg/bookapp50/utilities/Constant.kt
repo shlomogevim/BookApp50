@@ -24,6 +24,8 @@ const val USER_PROFILE_IMAGE="ProfileImage"
 const val USER_TYPE="userType"
 const val USER_DATE_CREATE="userDateCreate"
 
+const val BOOK_REF="Books"
+
 
 
 

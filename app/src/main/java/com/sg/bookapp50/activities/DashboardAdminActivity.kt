@@ -69,6 +69,10 @@ class DashboardAdminActivity : AppCompatActivity(), CategoryInterface {
         binding.addCategoryBtn.setOnClickListener {
             startActivity(Intent(this, CateroryAddActivity::class.java))
         }
+
+        binding.addPdfFab.setOnClickListener {
+            startActivity(Intent(this,PdfAddActivity::class.java))
+        }
     }
 
     private fun createFilterList(constrain: String): ArrayList<Cat> {

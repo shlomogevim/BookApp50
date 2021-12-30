@@ -10,6 +10,9 @@
         android:supportsRtl="false"
         android:theme="@style/Theme.BookApp50">
         <activity
+            android:name=".activities.PdfAddActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.UpdateCategoryActivity"
             android:exported="false" />
         <activity
